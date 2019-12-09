@@ -2,14 +2,25 @@
   "name": "js-nextcloud-io",
   "description": "Small script to communicate with a nextcloud instance. Actually only a reader for calendars.",
   "author": "Daron Simon <simon@surlaterre.org>",
-  "repository": "git@github.com:sdaron/js-nextcloud-io",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/sdaron/js-nextcloud-io.git"
+  },
   "version": "0.0.1",
-  "license": "GNU GPL",
+  "license": "GPL-3.0",
   "main": "./index.js",
   "dependencies": {
     "dav": "^1.8.0",
     "fs": "^0.0.1-security",
     "ical": "^0.6.0",
-    "moment": "^2.24.0"
+    "moment": "^2.24.0",
+    "moment-range": "^4.0.2"
+  },
+  "bugs": {
+    "url": "https://github.com/sdaron/js-nextcloud-io/issues"
+  },
+  "homepage": "https://github.com/sdaron/js-nextcloud-io#readme",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
 }
