@@ -5,7 +5,7 @@
   "repository": "git@github.com:sdaron/js-nextcloud-io",
   "version": "0.0.1",
   "license": "GNU GPL",
-  "main": "index.js",
+  "main": "./index.js",
   "dependencies": {
     "dav": "^1.8.0",
     "fs": "^0.0.1-security",
