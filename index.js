@@ -8,6 +8,7 @@ const moment = MomentRange.extendMoment(Moment);
 exports.getData = getNextcloudData;
 
 async function getNextcloudData(config){
+
   let calendars, xhr, output;
   const davServerURL = `${config.server}/remote.php/dav/`
 
@@ -30,25 +31,37 @@ async function getNextcloudData(config){
     //Get calendars and events
     results.calendars = [];
     account.calendars.forEach(function (calendar) {
+
       if(config.calendars && !Object.keys(config.calendars).includes(calendar.displayName)){
         return false;
       }
+
       let calendarCfg = config.calendars[calendar.displayName] || {};
+
       let calendarJSON = {
         name: calendar.displayName,
         events: []
       }
+
       let calendarRange = moment.range(calendarCfg['start'], calendarCfg['end'] || 8640000000000000);
 
       calendar.objects.forEach(function (event) {
 
-			  let eventOBJ = ical.parseICS(event.calendarData);
-			  let eventJSON = eventOBJ[Object.keys(eventOBJ)[0]];
-        // First case, no end date, select future and current events
-        let selected = true;
-        const eventRange = moment.range(eventJSON['start'],eventJSON['end']);
-        if (eventRange.overlaps(calendarRange)){
-          calendarJSON.events.push(eventJSON);
+			  let eventData = ical.parseICS(event.calendarData);
+        let eventJson;
+
+        for (let k in eventData) {
+            if (eventData.hasOwnProperty(k)) {
+                var ev = eventData[k];
+                if (eventData[k].type == 'VEVENT') {
+                    eventJSON = eventData[k];
+                    const eventRange = moment.range(eventJSON['start'],eventJSON['end']);
+                    if (eventRange.overlaps(calendarRange)){
+                      calendarJSON.events.push(eventJSON);
+                    }
+                    break;
+                }
+            }
         }
 
       });
@@ -60,5 +73,7 @@ async function getNextcloudData(config){
     output = results;
 
   });
+
   return output;
+
 }
