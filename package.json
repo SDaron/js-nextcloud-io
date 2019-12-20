@@ -6,7 +6,7 @@
     "type": "git",
     "url": "git+ssh://git@github.com/sdaron/js-nextcloud-io.git"
   },
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "GPL-3.0",
   "main": "./index.js",
   "dependencies": {
